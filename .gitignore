@@ -102,3 +102,12 @@ ENV/
 
 # mkdocs documentation
 /site
+
+#vscode configs
+.vscode/
+
+#markdown lint
+.markdownlint.json
+
+#pylint
+.pylintrc
