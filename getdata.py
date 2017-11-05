@@ -43,8 +43,17 @@ def get_comments(reddit):
 
     with open(r"dataset.csv", "r") as infile:
         reader = csv.reader(infile)
+
+        resume_flag = 0
+
         for row in reader:
             post_id = str(row[7])
+
+            if post_id == "6am00f":
+                resume_flag = 1
+            if not resume_flag:
+                continue
+
             submission = reddit.submission(id=post_id)
             submission.comments.replace_more(limit=30, threshold=10)
 
