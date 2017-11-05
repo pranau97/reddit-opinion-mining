@@ -3,8 +3,8 @@ import sys
 import csv
 import math
 import numpy as np
-import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
+import nltk as nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 import matplotlib.pyplot as plt
