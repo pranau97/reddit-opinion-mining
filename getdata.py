@@ -1,6 +1,4 @@
 '''
-A Reddit bot that posts explanation of xkcd comic strips posted in comments
-The explanation is extracted from http://explainxkcd.com
 License: MIT License
 '''
 import time
@@ -12,7 +10,7 @@ def authenticate():
     '''Authenticates the user based on the .ini file.'''
     print('Authenticating...')
     reddit = praw.Reddit(
-        'WebMiningProject', user_agent='web:web-mining-project-bot:v0.1 (by /u/pranau97)')
+        'WebMiningProject', user_agent='web:web-mining-project-bot:v0.1 (by /u/aayushchachan)')
     print('Authenticated as /u/{}'.format(reddit.user.me()))
     return reddit
 

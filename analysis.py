@@ -26,7 +26,7 @@ def run_sentiment_analysis():
             total_count = 0
 
             for row in post_reader:
-                resultult = sia.polarity_scoresult(row[0])
+                resultult = sia.polarity_scores(row[0])
                 print("Analysing post rows: " + str(row_count + 1), end="\r")
                 row_count += 1
                 total_count += 1
@@ -44,7 +44,7 @@ def run_sentiment_analysis():
 
             row_count = 0
             for row in comment_reader:
-                resultult = sia.polarity_scoresult(row[0])
+                resultult = sia.polarity_scores(row[0])
                 print("Analysing comment rows: " +
                       str(row_count + 1), end="\r")
                 row_count += 1
@@ -137,7 +137,7 @@ def run_topical_analysis(string):
                 if row[6] == "''":
                     match_post_selftext = 0
                     if match_post_flair >= 85 or match_post_title >= 85:
-                        resultult_0 = sia.polarity_scoresult(row[0])
+                        resultult_0 = sia.polarity_scores(row[0])
                         resultult_1 = None
                         include_list.append(row[7])
                     else:
@@ -145,8 +145,8 @@ def run_topical_analysis(string):
                 else:
                     match_post_selftext = fuzz.partial_ratio(string, row[6])
                     if match_post_flair >= 85 or match_post_title >= 85 or match_post_selftext >= 85:
-                        resultult_0 = sia.polarity_scoresult(row[0])
-                        resultult_1 = sia.polarity_scoresult(row[4])
+                        resultult_0 = sia.polarity_scores(row[0])
+                        resultult_1 = sia.polarity_scores(row[4])
                         include_list.append(row[7])
                     else:
                         continue
@@ -181,7 +181,7 @@ def run_topical_analysis(string):
                 if row[1] in include_list:
                     total_count += 1
 
-                    resultult = sia.polarity_scoresult(row[0])
+                    resultult = sia.polarity_scores(row[0])
 
                     if resultult['compound'] > 0.2:
                         with open(r"positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_comments:
