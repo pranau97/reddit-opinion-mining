@@ -1,5 +1,5 @@
 '''
-License: MIT License
+Script to scrape the top posts and comments data from /r/india.
 '''
 import time
 import csv
@@ -10,7 +10,7 @@ def authenticate():
     '''Authenticates the user based on the .ini file.'''
     print('Authenticating...')
     reddit = praw.Reddit(
-        'WebMiningProject', user_agent='web:web-mining-project-bot:v0.1 (by /u/aayushchachan)')
+        'WebMiningProject', user_agent='web:web-mining-project-bot:v0.1 (by /u/pranau97)')
     print('Authenticated as /u/{}'.format(reddit.user.me()))
     return reddit
 
@@ -18,7 +18,7 @@ def authenticate():
 def get_posts(reddit):
     '''Fetches the top 1000 posts from http://reddit.com/r/india of the past year.'''
 
-    with open(r"dataset.csv", "a") as outfile:
+    with open(r"out/dataset.csv", "a") as outfile:
         for submission in reddit.subreddit('india').top('year', limit=1000):
             print(submission.title)
             data = [
@@ -39,7 +39,7 @@ def get_posts(reddit):
 def get_comments(reddit):
     '''Gets the top 100 comments of each top 1000 post of http://reddit.com/r/india.'''
 
-    with open(r"dataset.csv", "r") as infile:
+    with open(r"out/dataset.csv", "r") as infile:
         reader = csv.reader(infile)
 
         resume_flag = 0
@@ -71,7 +71,7 @@ def get_comments(reddit):
                 if comment_str == "[deleted]" or comment_str == "[removed]":
                     continue
 
-                with open(r"dataset_comments.csv", "a") as outfile:
+                with open(r"out/dataset_comments.csv", "a") as outfile:
                     writer = csv.writer(outfile)
                     writer.writerow(["%r" % comment_str, post_id])
 
@@ -82,7 +82,7 @@ def get_comments(reddit):
 def main():
     '''The main function that calls the others.'''
     reddit = authenticate()
-    # get_posts(reddit)
+    get_posts(reddit)
     get_comments(reddit)
 
 

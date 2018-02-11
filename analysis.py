@@ -1,4 +1,7 @@
-'''Provides analyses on the collected dataset of posts and comments.'''
+'''
+Provides analyses on the collected dataset of posts and comments.
+'''
+
 import sys
 import csv
 import math
@@ -15,8 +18,8 @@ def run_sentiment_analysis():
     '''Reads the posts and comments and performs the analysis.'''
     sia = SIA()
 
-    with open(r"dataset.csv", "r") as infile_posts:
-        with open(r"dataset_comments.csv", "r") as infile_comments:
+    with open(r"out/dataset.csv", "r") as infile_posts:
+        with open(r"out/dataset_comments.csv", "r") as infile_comments:
             post_reader = csv.reader(infile_posts)
             comment_reader = csv.reader(infile_comments)
 
@@ -32,12 +35,12 @@ def run_sentiment_analysis():
                 total_count += 1
 
                 if resultult['compound'] > 0.2:
-                    with open(r"positive_list.txt", "a", encoding="utf-8") as outfile_posts_0:
+                    with open(r"out/positive_list.txt", "a", encoding="utf-8") as outfile_posts_0:
                         outfile_posts_0.write(row[0] + "\n")
                         positive_count += 1
 
                 elif resultult['compound'] < -0.2:
-                    with open(r"negative_list.txt", "a", encoding="utf-8") as outfile_posts_1:
+                    with open(r"out/negative_list.txt", "a", encoding="utf-8") as outfile_posts_1:
                         outfile_posts_1.write(row[0] + "\n")
                         negative_count += 1
             print("\nDone.")
@@ -51,12 +54,12 @@ def run_sentiment_analysis():
                 total_count += 1
 
                 if resultult['compound'] > 0.2:
-                    with open(r"positive_list.txt", "a", encoding="utf-8") as outfile_comments_0:
+                    with open(r"out/positive_list.txt", "a", encoding="utf-8") as outfile_comments_0:
                         outfile_comments_0.write(row[0] + "\n")
                         positive_count += 1
 
                 elif resultult['compound'] < -0.2:
-                    with open(r"negative_list.txt", "a", encoding="utf-8") as outfile_comments_1:
+                    with open(r"out/negative_list.txt", "a", encoding="utf-8") as outfile_comments_1:
                         outfile_comments_1.write(row[0] + "\n")
                         negative_count += 1
 
@@ -118,8 +121,8 @@ def run_topical_analysis(string):
     sia = SIA()
 
     print("Searching for " + string + "...")
-    with open(r"dataset.csv", "r") as infile_posts:
-        with open(r"dataset_comments.csv", "r") as infile_comments:
+    with open(r"out/dataset.csv", "r") as infile_posts:
+        with open(r"out/dataset_comments.csv", "r") as infile_comments:
             post_reader = csv.reader(infile_posts)
             comment_reader = csv.reader(infile_comments)
 
@@ -152,25 +155,25 @@ def run_topical_analysis(string):
                         continue
 
                 if resultult_0['compound'] > 0.2:
-                    with open(r"positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
+                    with open(r"out/positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
                         outfile_posts.write(row[0] + "\n")
                         positive_count += 1
                         total_count += 1
 
                 elif resultult_0['compound'] < -0.2:
-                    with open(r"negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
+                    with open(r"out/negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
                         outfile_posts.write(row[0] + "\n")
                         negative_count += 1
                         total_count += 1
 
                 if resultult_1 is not None:
                     if resultult_1['compound'] > 0.2:
-                        with open(r"positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
+                        with open(r"out/positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
                             outfile_posts.write(row[0] + "\n")
                             positive_count += 1
 
                     elif resultult_1['compound'] < -0.2:
-                        with open(r"negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
+                        with open(r"out/negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_posts:
                             outfile_posts.write(row[0] + "\n")
                             negative_count += 1
 
@@ -184,12 +187,12 @@ def run_topical_analysis(string):
                     resultult = sia.polarity_scores(row[0])
 
                     if resultult['compound'] > 0.2:
-                        with open(r"positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_comments:
+                        with open(r"out/positive_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_comments:
                             outfile_comments.write(row[0] + "\n")
                             positive_count += 1
 
                     elif resultult['compound'] < -0.2:
-                        with open(r"negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_comments:
+                        with open(r"out/negative_list_" + "%r" % string + r".txt", "a", encoding="utf-8") as outfile_comments:
                             outfile_comments.write(row[0] + "\n")
                             negative_count += 1
 
@@ -209,7 +212,7 @@ def main():
     elif sys.argv[1] == "-w" or sys.argv[1] == "--words":
         search_string = str(sys.argv[2])
         search_type = str(sys.argv[3])
-        filename = search_type.lower() + r"_list_" + \
+        filename = r"out/" + search_type.lower() + r"_list_" + \
             "%r" % search_string + r".txt"
         word_distribution(filename)
     else:
