@@ -80,7 +80,7 @@ def get_comments(reddit):
 
 
 def main():
-    '''The main function that calls the others.'''
+    '''The main function that calls the other functions.'''
     reddit = authenticate()
     get_posts(reddit)
     get_comments(reddit)

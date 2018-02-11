@@ -11,4 +11,3 @@ FROM (
 GROUP BY Source, Target
 HAVING Source < Target AND Weight >= 200
 ORDER BY Weight DESC
-

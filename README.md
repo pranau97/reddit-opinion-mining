@@ -49,7 +49,7 @@ Install using `install.packages(<package-name>)`.
 1. Sign up / login on [Google BigQuery](https://bigquery.cloud.google.com).
 2. Select or create a new project and click on 'Compose Query'.
 3. Paste the contents of the SQL script in the folder `subreddit-viz` in the editor and run it.
-4. Download the generated CSV file as `reddit-edge-list.csv` within the `subreddit-viz` folder.
+4. Download the generated CSV file as `reddit-edge-list.csv` and save it within the `subreddit-viz` folder.
 
 ## Running the scripts
 
@@ -62,10 +62,9 @@ Install using `install.packages(<package-name>)`.
     client_id: client_id that you got
     client_secret: client_secret that you got
     ```
-3. Create a blank text file named `dataset.csv` and `dataset_comments.csv` inside the folder, `sentiment_analyses`.
-4. Run the script `getdata.py` via `python3 getdata.py`.
-5. It should scrape all the necessary data in approximately 20-25 minutes.
-6. Run `analysis.py` using `python3 analysis.py [args]`. The arguments the script accepts are -
+3. Run the script `getdata.py` via `python3 getdata.py`.
+4. It should scrape all the necessary data in approximately 20-25 minutes.
+5. Run `analysis.py` using `python3 analysis.py [args]`. The arguments the script accepts are -
     * no arguments - Runs sentiment analysis on the entire data.
     * `-h` or `--help` - Prints the usage details.
     * `-w string type` or `--words string type` - Generates a word distribution of the given string and type - positive or negative. Requires that sentiment analysis for the particular term already be performed previously.
