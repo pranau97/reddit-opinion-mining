@@ -1,5 +1,5 @@
 # PRAW config file
-praw.ini
+sentiment-analyses/praw.ini
 
 # comment-id data
 commented.txt
