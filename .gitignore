@@ -111,3 +111,14 @@ ENV/
 
 #pylint
 .pylintrc
+
+#Outputs
+sentiment-analyses/out
+subreddit-viz/reddit-edge-list.csv
+subreddit-viz/df_net.csv
+subreddit-viz/subreddit-groups
+subreddit-viz/Sheet 1.pdf
+subreddit-viz/subreddit-1.pdf
+subreddit-viz/subreddit-1.svg
+subreddit-viz/subreddit-2.pdf
+subreddit-viz/subreddit-2.svg

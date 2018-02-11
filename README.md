@@ -1,44 +1,72 @@
-# explainxkcdbot
+# Reddit Opinion Mining and Sentiment Analysis
 
-A Reddit bot.
+A project written in R and Python to mine a Reddit corpus.
 
 ## Requirements
 
+### Python and its dependencies
+
 1. Python 3
-2. pip for Python 3 (recommended)
-   * For installation see [here](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers) and [here](https://pip.pypa.io/en/stable/installing/).
-3. PRAW
-   * Install using pip3 by running `pip3 install praw` or `sudo -H pip3 install praw` if it requires escalated privileges.
-4. Python Requests
-   * Install using pip3 by running `pip3 install requests` or `sudo -H pip3 install requests` if it requires escalated privileges.
-5. Beautiful Soup 4
-   * Install using pip3 by running `pip3 install beautifulsoup4` or `sudo -H pip3 install beautifulsoup4` if it requires escalated privileges.
+2. PRAW
+3. requests
+4. bs4
+5. numpy
+6. fuzzywuzzy
+7. nltk
+8. matplotlib
+
+**Recommended:** Install python related packages in a virtual environment.
+
+Install using `pip install -U <package-name>`. NLTK also requires that you install the corpuses for tokens and stopwords for the English language.
+
+### R and its dependencies
+
+1. R
+2. sna
+3. ggnetwork
+4. svglite
+5. igraph
+6. intergraph
+7. rsvg
+8. ggplot2
+
+Install using `install.packages(<package-name>)`.
 
 ## Obtaining Reddit API access credentials
 
 1. Create a Reddit account, and while logged in, navigate to preferences > apps
-2. Click on the **are you a developer? create an app...** button
+2. Click on the `Are you a developer? Create an app...` button
 3. Fill in the details-
     * name: Name of your bot/script
     * Select the option 'script'
     * description: Put in a description of your bot/script
     * redirect uri: `http://localhost:8080`
-4. Click **create app**
+4. Click on `Create App`.
 5. You will be given a `client_id` and a `client_secret`. Keep them confidential.
 
-## How to run it
+## Extracting edge data from the Pushshift Reddit dataset
 
-1. Clone or download (and extract) this repository and navigate to it's directory
-2. Create a file named *praw.ini* with it's contents as:
+1. Sign up / login on [Google BigQuery](https://bigquery.cloud.google.com).
+2. Select or create a new project and click on 'Compose Query'.
+3. Paste the contents of the SQL script in the folder `subreddit-viz` in the editor and run it.
+4. Download the generated CSV file as `reddit-edge-list.csv` within the `subreddit-viz` folder.
+
+## Running the scripts
+
+1. To obtain the subreddit visualizations, run the R script using `R CMD BATCH reddit.R`. Make sure to create an empty folder called `subreddit-groups` in the same folder as the script.
+2. Create a file named `praw.ini` with it's contents as:
     ```plaintext
-    [explainbot]
+    [<bot-name>]
     username: reddit username
     password: reddit password
     client_id: client_id that you got
     client_secret: client_secret that you got
     ```
-3. Create a blank text file named *commented.txt* inside the project directory
-4. In *explainxkcdbot.py*, replace the value of `path` with the location of your *commented.txt*.
-5. At a minimum, three files, namely *explainxkcdbot.py*, *praw.ini* and *commented.txt* are required for the bot to run.
-6. Type `python3 explainxkcdbot.py` in the Terminal to run the bot.
-7. If the Reddit API returns an error due to too many requests, adjust `val` in the instances of `time.sleep(val)` in *explainxkcdbot.py*
+3. Create a blank text file named `dataset.csv` and `dataset_comments.csv` inside the folder, `sentiment_analyses`.
+4. Run the script `getdata.py` via `python3 getdata.py`.
+5. It should scrape all the necessary data in approximately 20-25 minutes.
+6. Run `analysis.py` using `python3 analysis.py [args]`. The arguments the script accepts are -
+    * no arguments - Runs sentiment analysis on the entire data.
+    * `-h` or `--help` - Prints the usage details.
+    * `-w string type` or `--words string type` - Generates a word distribution of the given string and type - positive or negative. Requires that sentiment analysis for the particular term already be performed previously.
+    * `string` - Looks for similar strings in the corpus and performs sentiment analysis on it.
