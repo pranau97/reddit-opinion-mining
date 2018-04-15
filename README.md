@@ -69,3 +69,7 @@ Install using `install.packages(<package-name>)`.
     * `-h` or `--help` - Prints the usage details.
     * `-w string type` or `--words string type` - Generates a word distribution of the given string and type - positive or negative. Requires that sentiment analysis for the particular term already be performed previously.
     * `string` - Looks for similar strings in the corpus and performs sentiment analysis on it.
+
+## Credits
+
+* Max Woolf's blog post on [subreddit visualizations](http://minimaxir.com/2016/05/reddit-graph/) was of great help in making this project.
